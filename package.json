@@ -4,8 +4,8 @@
   "description": "server for sending emails to my email",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon app.js",
-    "start": "node app.js"
+    "server": "nodemon index.js",
+    "start": "node index.js"
   },
   "keywords": [],
   "repository": {
