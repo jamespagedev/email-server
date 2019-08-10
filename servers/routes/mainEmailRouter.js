@@ -28,8 +28,8 @@ router.post('/send', async (req, res, next) => {
       <h3>Contact Details</h3>
       <ul>
         <li>Name: ${name}</li>
-        <li>Name: ${email}</li>
-        <li>Name: ${subject}</li>
+        <li>Email: ${email}</li>
+        <li>Subject: ${subject}</li>
       </ul>
       <h3>Message</h3>
       <p>${message}</p>
