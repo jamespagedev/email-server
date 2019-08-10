@@ -19,8 +19,10 @@ server.get('/', (req, res) => {
 });
 
 const mainEmailRouter = require('./routes/mainEmailRouter.js');
+const testEmailRouter = require('./routes/testEmailRouter.js');
 
 server.use('/main-email', mainEmailRouter);
+server.use('/test-email', testEmailRouter);
 
 server.use(errorHandler); // This line needs to be after all routes
 

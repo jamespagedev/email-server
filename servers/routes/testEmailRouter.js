@@ -16,6 +16,7 @@ router.get('/', (req, res, next) =>{
 });
 
 router.post('/send', async (req, res, next) => {
+  console.log(req.body);
   const { sendtype, name, email, subject, message } = req.body;
   try {
     let subjectPortfolio = subject;
@@ -37,26 +38,27 @@ router.post('/send', async (req, res, next) => {
 
     // for more info -> https://ourcodeworld.com/articles/read/264/how-to-send-an-email-gmail-outlook-and-zoho-using-nodemailer-in-node-js
     let transporter = nodemailer.createTransport({
-      host: process.env.NODEMAILER_MAIN_EMAIL_HOST, // smtp-mail.outlook.com for outlook
-      port: process.env.NODEMAILER_MAIN_EMAIL_PORT,
-      secureConnection: false, // true for 465, false for all other ports || try "secureConnection: false, tls: {ciphers: 'SSLv3'}," for outlook
-      tls: {ciphers: 'SSLv3'},
+      host: process.env.NODEMAILER_TEST_EMAIL_HOST, // smtp-mail.outlook.com for outlook
+      port: process.env.NODEMAILER_TEST_EMAIL_PORT,
+      secure: false, // true for 465, false for all other ports || try "secureConnection: false, tls: {ciphers: 'SSLv3'}," for outlook
       auth: {
-        user: process.env.NODEMAILER_MAIN_EMAIL_USER, // generated ethereal user
-        pass: process.env.NODEMAILER_MAIN_EMAIL_PASS // generated ethereal password
+        user: process.env.NODEMAILER_TEST_EMAIL_USER, // generated ethereal user
+        pass: process.env.NODEMAILER_TEST_EMAIL_PASS // generated ethereal password
       }
     });
 
     let mailOptions = {
       from: name,
-      to: process.env.NODEMAILER_MAIN_EMAIL_USER,
+      to: process.env.NODEMAILER_TEST_EMAIL_USER,
       replyTo: email,
       subject: subjectPortfolio,
       text: message,
       html: htmlEmail
     };
 
-    await transporter.sendMail(mailOptions);
+    let info = await transporter.sendMail(mailOptions);
+    console.log('Message sent: ', info);
+    console.log('Message URL: ', nodemailer.getTestMessageUrl(info));
 
     res.status(201).json({msg: 'success'});
   } catch(err) {
